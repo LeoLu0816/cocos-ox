@@ -18,7 +18,7 @@ export class welcome extends Component {
     // gameE.addPersistRootNode(audioSource.node);
 
     // init AudioManager
-    // audioManager.instance.init(this._audioSource);
+    audioManager.instance.preLoadAll();
   }
 
   start() {
