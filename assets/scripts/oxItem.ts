@@ -33,8 +33,22 @@ export class oxItem extends Component {
       // this._isO = !this._isO;
       const txt = player.type ? "O" : "X";
       this.label.string = txt;
-      this.label.color = player.type ? constant.COLOR.O :constant.COLOR.X;
+      this.label.color = player.type ? constant.COLOR.O : constant.COLOR.X;
       store.next(this.index);
+    });
+
+    store.on("updateRoad", () => {
+      const myRoad = store.roadData[this.index];
+      console.log(`[updateRoad] ${this.index} myRoad: `, myRoad);
+
+      if (this.hasValue || !store.isGaming) return;
+      if (myRoad === undefined) { return }
+
+      let player = store.players[store.nowPlayerIndex];
+      const txt = player.type ? "O" : "X";
+      this.label.string = txt;
+      this.label.color = player.type ? constant.COLOR.O : constant.COLOR.X;
+      this.hasValue = true;
     });
   }
 }

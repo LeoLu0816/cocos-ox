@@ -188,13 +188,13 @@ class Store extends EventTarget {
   next(index) {
     const player = this.players[this.nowPlayerIndex];
     this.roadData[index] = player.type;
+    this.emit("updateRoad");
     player.step++;
     this.roundStep++;
     if (this.checkWinner()) {
       player.winCount++;
       this.winPlayerIndex = this.nowPlayerIndex;
       this.isGaming = false;
-      // this.resetData();
       this.emit("hasWinner");
       this.emit("roundDone");
     } else if (this.checkDraw()) {
@@ -204,10 +204,26 @@ class Store extends EventTarget {
       this.emit("updateDrawCount");
       this.emit("roundDone");
       this.emit("showDraw");
+      console.log(`roadData`, this.roadData);
     } else {
       this.nowPlayerIndex = this.nowPlayerIndex === 0 ? 1 : 0;
+      if (this.nowPlayerIndex === 1 && this.gameInfo.useAi) {
+        this.startAi();
+      }
     }
+
     this.emit("updatePlayerInfo");
+  }
+
+  startAi() {
+    // 抓出 空區 隨機下
+    console.log(this.roadData);
+    const 空區 = this.roadData.map((v, i) => ({ i, v })).filter(x => x.v === undefined);
+    console.log(空區);
+    const randomIndex = Math.floor(Math.random() * 空區.length);
+    const thisRoundIndex =  空區[randomIndex].i
+    console.log(`AI隨機取索引: ${thisRoundIndex}`);
+    this.next(thisRoundIndex);
   }
 }
 
