@@ -44,8 +44,10 @@ export class GameRoot extends Component {
     // init AudioManager
     audioManager.instance.init(this._audioSource);
 
+    // 預設開啟AI
+    store.gameInfo.useAi = true;
     this.useAiChk.interactable = true;
-    this.useAiChk.isChecked = false;
+    this.useAiChk.isChecked = store.gameInfo.useAi;
     this.useAiChk.node.on("toggle", () => {
       const { isChecked } = this.useAiChk;
       store.gameInfo.useAi = isChecked;
