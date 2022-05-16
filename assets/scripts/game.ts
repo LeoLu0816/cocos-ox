@@ -38,7 +38,7 @@ export class GameRoot extends Component {
   onLoad() {
     const audioSource = this.getComponent(AudioSource)!;
     this._audioSource = audioSource;
-    gameE.addPersistRootNode(this.node);
+    // gameE.addPersistRootNode(this.node);
     gameE.addPersistRootNode(this.myDialog);
 
     // init AudioManager
@@ -78,6 +78,7 @@ export class GameRoot extends Component {
     this.playerInfo1.getComponent(playerInfo).myPlayerIndex = 0;
     this.playerInfo2.getComponent(playerInfo).myPlayerIndex = 1;
 
+    audioManager.instance.preLoadAll();
     audioManager.instance.playMusic(true);
   }
 

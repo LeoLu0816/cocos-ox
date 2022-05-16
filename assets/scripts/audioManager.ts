@@ -22,7 +22,11 @@ export class audioManager {
   // init AudioManager in GameRoot.
   init(audioSource: AudioSource) {
     audioManager._audioSource = audioSource;
-    resources.preload('audio/' + constant.AUDIO_SOUND.BACKGROUND);
+    this.preLoadAll();
+  }
+
+  preLoadAll() {
+    resources.preloadDir('audio');
   }
 
   /**
